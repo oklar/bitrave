@@ -81,4 +81,38 @@ contract MusicNFTMarketplace is ERC721("BitraveFi", "BRF"), Ownable {
         _transfer(msg.sender, address(this), _tokenId);
         emit MarketItemRelisted(_tokenId, msg.sender, _price);
     }
+
+    function getAllUnsoldTokens() external view returns (MarketItem[] memory) {
+        uint256 unsoldCount = balanceOf(address(this));
+        MarketItem[] memory tokens = new MarketItem[](unsoldCount);
+        uint256 currentIndex;
+
+        for (uint256 i = 0; i < marketItems.length; i++) {
+            if (marketItems[i].seller != address(0)) {
+                tokens[currentIndex] = marketItems[i];
+                currentIndex++;
+            }
+        }
+
+        return (tokens);
+    }
+
+    function getMyTokens() external view returns (MarketItem[] memory) {
+        uint256 myTokenCount = balanceOf(msg.sender);
+        MarketItem[] memory tokens = new MarketItem[](myTokenCount);
+        uint256 currentIndex;
+
+        for (uint256 i = 0; i < marketItems.length; i++) {
+            if (ownerOf(i) == msg.sender) {
+                tokens[currentIndex] = marketItems[i];
+                currentIndex++;
+            }
+        }
+
+        return (tokens);
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseURI;
+    }
 }
