@@ -1,5 +1,11 @@
 async function main() {
-  const [deployer] = await ethers.getSigners();
+  const toWei = (num) => ethers.utils.parseEther(num.toString());
+
+  let royaltyFee = toWei(0.01); // 1 ether = 10^18 wei
+  let prices = [toWei(1), toWei(2)];
+  let deploymentFees = toWei(prices.length * 0.01);
+
+  const [deployer, artist] = await ethers.getSigners();
 
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()).toString());
@@ -8,7 +14,12 @@ async function main() {
   const NFTMarketplaceFactory = await ethers.getContractFactory(
     "MusicNFTMarketplace"
   );
-  const nftMarketplace = await NFTMarketplaceFactory.deploy();
+  const nftMarketplace = await NFTMarketplaceFactory.deploy(
+    royaltyFee,
+    artist.address,
+    prices,
+    { value: deploymentFees }
+  );
 
   console.log("Smart contract adress:", nftMarketplace.address);
 

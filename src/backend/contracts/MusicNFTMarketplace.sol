@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract MusicNFTMarketplace is ERC721("BitraveFi", "BRF"), Ownable {
     string public baseURI =
-        "https://bafybeifdcym5lijteu7m3yndu273jz4yhlcey3lxcypaz7fjejjs33fqbq.ipfs.nftstorage.link"; // location for the metadata of the music nfts
+        "https://bafybeifdcym5lijteu7m3yndu273jz4yhlcey3lxcypaz7fjejjs33fqbq.ipfs.nftstorage.link/"; // location for the metadata of the music nfts
     string public baseExtension = ".json";
     address public artist;
     uint256 public royaltyFee;
