@@ -2,4 +2,4 @@
 
 Buy / Sell Marketplace
 
-https://oklar.github.io/bitrave_public/
+https://oklar.github.io/bitrave_build/
