@@ -38,7 +38,12 @@ const Home = ({ contract }) => {
     setLoading(false);
   };
   const buyMarketItem = async (item) => {
-    await (await contract.buyToken(item.itemId, { value: item.price })).wait();
+    await (
+      await contract.buyToken(item.itemId, {
+        value: item.price,
+        gasLimit: 300000,
+      })
+    ).wait();
     loadMarketplaceItems();
   };
   const skipSong = (forwards) => {

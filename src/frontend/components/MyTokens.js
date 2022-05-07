@@ -47,7 +47,10 @@ export default function MyTokens({ contract }) {
     const fee = await contract.royaltyFee();
     const price = ethers.utils.parseEther(resellPrice.toString());
     await (
-      await contract.resellToken(item.itemId, price, { value: fee })
+      await contract.resellToken(item.itemId, price, {
+        value: fee,
+        gasLimit: 300000,
+      })
     ).wait();
     loadMyTokens();
   };
